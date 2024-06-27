@@ -1,0 +1,108 @@
+
+############################# Heartbeat ######################################
+
+# Define a directory to load monitor definitions from. Definitions take the form
+# of individual yaml files.
+heartbeat.config.monitors:
+  # Directory + glob pattern to search for configuration files
+  path: ${path.config}/monitors.d/*.yml
+  # If enabled, heartbeat will periodically check the config.monitors path for changes
+  reload.enabled: false
+  # How often to check for changes
+  reload.period: 5s
+
+# Configure monitors inline
+heartbeat.monitors:
+- type: http
+  # Set enabled to true (or delete the following line) to enable this example monitor
+  enabled: false
+  # ID used to uniquely identify this monitor in elasticsearch even if the config changes
+  id: my-monitor
+  # Human readable display name for this service in Uptime UI and elsewhere
+  name: My Monitor
+  # List or urls to query
+  urls: ["http://localhost:9200"]
+  # Configure task schedule
+  schedule: '@every 10s'
+  # Total test connection and data exchange timeout
+  #timeout: 16s
+  # Name of corresponding APM service, if Elastic APM is in use for the monitored service.
+  #service.name: my-apm-service-name
+
+# Experimental: Set this to true to run heartbeat monitors exactly once at startup
+#heartbeat.run_once: true
+
+# ======================= Elasticsearch template setting =======================
+
+setup.template.settings:
+  index.number_of_shards: 1
+  index.codec: best_compression
+  #_source.enabled: false
+
+# ================================== General ===================================
+
+# The name of the shipper that publishes the network data. It can be used to group
+# all the transactions sent by a single shipper in the web interface.
+#name:
+
+# The tags of the shipper are included in their own field with each
+# transaction published.
+#tags: ["service-X", "web-tier"]
+
+# Optional fields that you can specify to add additional information to the
+# output.
+#fields:
+#  env: staging
+
+
+# =================================== Kibana ===================================
+
+# Starting with Beats version 6.0.0, the dashboards are loaded via the Kibana API.
+# This requires a Kibana endpoint configuration.
+setup.kibana:
+
+  # Kibana Host
+  # Scheme and port can be left out and will be set to the default (http and 5601)
+  # In case you specify and additional path, the scheme is required: http://localhost:5601/path
+  # IPv6 addresses should always be defined as: https://[2001:db8::1]:5601
+  #host: "localhost:5601"
+
+  # Kibana Space ID
+  # ID of the Kibana Space into which the dashboards should be loaded. By default,
+  # the Default Space will be used.
+  #space.id:
+
+# =============================== Elastic Cloud ================================
+
+# These settings simplify using Heartbeat with the Elastic Cloud (https://cloud.elastic.co/).
+
+# The cloud.id setting overwrites the `output.elasticsearch.hosts` and
+# `setup.kibana.host` options.
+# You can find the `cloud.id` in the Elastic Cloud web UI.
+#cloud.id:
+
+# The cloud.auth setting overwrites the `output.elasticsearch.username` and
+# `output.elasticsearch.password` settings. The format is `<user>:<pass>`.
+#cloud.auth:
+
+# ================================== Outputs ===================================
+
+# Configure what output to use when sending the data collected by the beat.
+
+# ---------------------------- Elasticsearch Output ----------------------------
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["http://107.20.155.84:9200"]
+  username: "heartbeat_writer"
+  password: "teste@dev"
+
+# ================================= Processors =================================
+
+processors:
+  - add_observer_metadata:
+      # Optional, but recommended geo settings for the location Heartbeat is running in
+      #geo:
+        # Token describing this location
+        #name: us-east-1a
+        # Lat, Lon "
+        #location: "37.926868, -78.024902"

@@ -1,0 +1,10 @@
+version: '3'
+services:
+
+  sig:
+    image: prodatainformatica/sig:augusto
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./home/conexao:/home/conexao
+    

@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  owncloud:
+    image: owncloud/server:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - ./data:/var/www/html
+    environment:
+      - OWNCLOUD_DOMAIN=${OWNCLOUD_DOMAIN}
+      - OWNCLOUD_DB_TYPE=${OWNCLOUD_DB_TYPE}
+      - OWNCLOUD_DB_NAME=${OWNCLOUD_DB_NAME}
+      - OWNCLOUD_DB_USERNAME=${OWNCLOUD_DB_USERNAME}
+      - OWNCLOUD_DB_PASSWORD=${OWNCLOUD_DB_PASSWORD}
+      - OWNCLOUD_DB_HOST=db
+      - OWNCLOUD_ADMIN_USERNAME=${OWNCLOUD_ADMIN_USERNAME}
+      - OWNCLOUD_ADMIN_PASSWORD=${OWNCLOUD_ADMIN_PASSWORD}
+
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_RANDOM_ROOT_PASSWORD=${MYSQL_RANDOM_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+  data:

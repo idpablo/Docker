@@ -1,0 +1,14 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+  otlp/2:
+    protocols:
+      grpc:
+        endpoint: 127.0.0.1:8080
+
+exporters:
+  # Data sources: traces, metrics, logs
+  file:
+    path: ./filename.json

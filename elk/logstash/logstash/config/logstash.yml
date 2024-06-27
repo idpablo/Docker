@@ -1,0 +1,15 @@
+---
+## Default Logstash configuration from Logstash base image.
+## https://github.com/elastic/logstash/blob/main/docker/data/logstash/config/logstash-full.yml
+#
+http.host: "0.0.0.0"
+pipeline.ecs_compatibility: v8
+
+pipeline:
+  batch:
+    size: 128
+    delay: 50
+
+path.data: /var/lib/logstash
+
+path.logs: /var/log/logstash/log

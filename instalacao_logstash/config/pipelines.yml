@@ -1,0 +1,7 @@
+- pipeline.id: wildfly-processing 
+  path.config: "/etc/logstash/conf.d/wildfly_logstash.conf"
+  pipeline.workers: 1
+
+- pipeline.id: httpd-processing 
+  path.config: "/etc/logstash/conf.d/httpd_logstash.conf" 
+  pipeline.workers: 1

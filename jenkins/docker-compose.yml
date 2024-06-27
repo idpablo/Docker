@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+    environment:
+      - JAVA_OPTS=-Duser.timezone=America/New_York
+    networks:
+      - jenkins-net
+
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - jenkins-net
+
+networks:
+  jenkins-net:
+
+volumes:
+  jenkins_data:

@@ -1,0 +1,21 @@
+integrations:
+  - name: postgresql-28
+    env:
+      USERNAME: newrelic
+      PASSWORD: prodata
+      HOSTNAME: local-centos7-28
+      PORT: 5432
+      DATABASE: postgres
+      COLLECT_DB_LOCK_METRICS: false
+      COLLECTION_LIST: 'ALL'
+      ENABLE_SSL: "true"
+      TRUST_SERVER_CERTIFICATE: "false"
+      # SSL_ROOT_CERT_LOCATION: /etc/newrelic-infra/root_cert.crt
+      # SSL_CERT_LOCATION: /etc/newrelic-infra/postgresql.crt
+      # SSL_KEY_LOCATION: /etc/newrelic-infra/postgresql.key
+      TIMEOUT:  10
+    interval: 15s
+    labels:
+      env: production
+      role: postgresql
+    inventory_source: config/postgresql

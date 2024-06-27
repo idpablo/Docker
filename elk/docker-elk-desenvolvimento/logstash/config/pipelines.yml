@@ -1,0 +1,9 @@
+- pipeline.id: wildfly-processing 
+  path.config: "/usr/share/logstash/pipeline/wildfly_logstash.conf"
+  queue.type: persisted
+  pipeline.workers: 3
+
+- pipeline.id: httpd-processing 
+  path.config: "/usr/share/logstash/pipeline/httpd_logstash.conf" 
+  queue.type: persisted
+  pipeline.workers: 3

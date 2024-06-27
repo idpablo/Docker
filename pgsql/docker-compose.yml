@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+    pgsql:
+        build:
+            context: ./pgsql/
+            args:
+                PGSQL_VERSION: ${PGSQL_VERSION}
+        container_name: ${CONTAINER_NAME}
+        ports:
+            - 5432:5432
+        environment:
+            - node.name=${PGSQL_NAME}
+            - POSTGRES_USER=${PGSQL_USER}
+            - POSTGRES_PASSWORD=${PGSQL_PASSWORD}
+        volumes:
+            - /mnt/docker/disk02:/var/lib/postgresql/data
+            
